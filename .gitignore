@@ -1,3 +1,4 @@
+
 # IntelliJ
 .idea/
 *.iml
@@ -7,6 +8,13 @@ out/
 build/
 target/
 
+# Python
+__pycache__/
+*.pyc
+
 # OS
 .DS_Store
 Thumbs.db
+
+# IntelliJ-Ordner/Downloads
+idea-*/
