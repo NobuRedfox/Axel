@@ -14,8 +14,8 @@ public class Board {
 
             }
         }
-
     }
+
     public void printBoard() {
         System.out.println("      1   2   3   4   5   6   7   8   9   10");
         System.out.println("    ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐");
@@ -54,7 +54,6 @@ public class Board {
         System.out.printf("%-2d\n", 1); linksbündig mit 2 zeichen = 1
         System.out.printf("%-2d\n", 10);                          = 10
      */
-
     }
 
     public void placeShip(int row, int col, int length, boolean horizontal) {
@@ -65,7 +64,14 @@ public class Board {
             }
 
             for (int i = 0; i < length; i++) {
-                board[row][col + i] = 'S';
+                if (board[row][col + i] == 'S') {
+                    System.out.println("Da liegt schon ein Schiff!");
+                    return;
+                }
+            }
+
+            for (int i = 0; i < length; i++) {
+                board[row][col +  i] = 'S';
             }
 
         } else {
@@ -75,8 +81,30 @@ public class Board {
             }
 
             for (int i = 0; i < length; i++) {
+                if (board[row + i][col] == 'S') {
+                    System.out.println("Da liegt schon ein Schiff!");
+                    return;
+                }
+            }
+
+            for (int i = 0; i < length; i++) {
                 board[row + i][col] = 'S';
             }
+        }
+    }
+
+    public void shoot(int row, int col) {
+        if (visible[row][col] != ' ') {
+            System.out.println("Wurde bereits geschossen!");
+            return;
+        }
+
+        if (board[row][col] == 'S') {
+            visible[row][col] = 'X';
+            System.out.println("Treffer!");
+        } else {
+            visible[row][col] = 'O';
+            System.out.println("Nicht getroffen!");
         }
     }
 }
