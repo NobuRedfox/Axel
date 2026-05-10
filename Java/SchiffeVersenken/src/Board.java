@@ -95,7 +95,7 @@ public class Board {
 
     public void shoot(int row, int col) {
         if (visible[row][col] != ' ') {
-            System.out.println("Wurde bereits geschossen!");
+            System.out.println("Auf dieses Feld wurde bereits geschossen!");
             return;
         }
 
@@ -106,6 +106,17 @@ public class Board {
             visible[row][col] = 'O';
             System.out.println("Nicht getroffen!");
         }
+    }
+
+    public boolean hasShipsLeft() {
+        for (int row = 0; row < SIZE; row++) {
+            for (int col = 0; col < SIZE; col++) {
+                if (board[row][col] == 'S' && visible[row][col] != 'X') {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
 

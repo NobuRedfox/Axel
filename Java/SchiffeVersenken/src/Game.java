@@ -1,22 +1,29 @@
 import java.util.Scanner;
+import java.util.Random;
 
 public class Game {
-    private Board board;
+    private Player player;
+    private Player computer;
 
     public Game() {
-        board = new Board();
+        player = new Player("Spieler");
+        computer = new Player("Computer");
     }
 
     public void start() {
         Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
 
-        board.placeShip(0, 0, 4, true);
-        board.placeShip(3, 3, 3, false);
+        computer.getBoard().placeShip(0, 0, 4, true);
+        computer.getBoard().placeShip(3, 3, 4, false);
+
+        player.getBoard().placeShip(1, 1, 4, true);
+        player.getBoard().placeShip(5, 5, 3, false);
 
         while (true) {
 
             System.out.println("Gegnerisches Feld:");
-            board.printVisible();
+            computer.getBoard().printVisible();
 
             System.out.print("Reihe: ");
             int row = scanner.nextInt();
@@ -29,10 +36,36 @@ public class Game {
                 continue;
             }
 
-            board.shoot(row - 1, col - 1);
+            computer.getBoard().shoot(row - 1, col - 1);
+
+            if (!computer.getBoard().hasShipsLeft()) {
+
+                System.out.println("Gegnerisches Feld:");
+                computer.getBoard().printVisible();
+
+                System.out.println("Alle Schiffe zerstört! Spiel gewonnen!");
+                break;
+            }
+
+            int aiRow = random.nextInt(10);
+            int aiCol = random.nextInt(10);
+
+            // System.out.println("Computer schießt auf: " + (aiRow + 1) + "/" + (aiCol + 1));
+            System.out.printf("Computer schießt auf: %d/%d%n", aiRow + 1, aiCol + 1);
+
+            player.getBoard().shoot(aiRow, aiCol);
+
+            if (!player.getBoard().hasShipsLeft()) {
+
+                System.out.println("Dein Feld:");
+                player.getBoard().printVisible();
+
+                System.out.println("Alle Schiffe zerstört! Der Computer hat das Spiel gewonnen!");
+                break;
+            }
 
             System.out.println("Dein Feld:");
-            board.printBoard();
+            player.getBoard().printBoard();
         }
     }
 }
