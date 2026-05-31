@@ -1,10 +1,21 @@
 public class Main {
+
     public static void main(String[] args) {
-        Board board = new Board();
+        if (args.length == 0) {
+            System.out.println("Use:");
+            System.out.println("java Main server");
+            System.out.println("java Main client <server-ip>");
+            return;
+        }
 
-        board.setMove(0, 0, 'X');
-        board.setMove(1, 1, 'O');
+        if (args[0].equals("server")) {
+            GameServer server = new GameServer();
+            server.start();
+        }
 
-        board.printBoard();
+        if (args[0].equals("client")) {
+            GameClient client = new GameClient();
+            client.start(args[1]);
+        }
     }
 }
