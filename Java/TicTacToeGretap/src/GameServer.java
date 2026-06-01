@@ -1,11 +1,13 @@
 import java.io.*;   // lesen und schreiben
 import java.net.*;  // Netzwerk, Socket, ServerSocket
+import java.util.Scanner;
 
 public class GameServer {
 
     public void start() {
 
         Board board = new Board();
+        Scanner scanner = new Scanner(System.in);
 
         try {
             // Server wird geöffnet mit Port 5000
@@ -31,28 +33,114 @@ public class GameServer {
 
             // Spielfeld wird zum Client geschickt und gibt das Board als String zurück
             out.println(board.getBoardAsString());
+            out.println("YOUR_TURN");
+            out.println();
 
-            // Server wartet auf eine Zeile vom Client
-            String message = in.readLine();
-            System.out.println("Client says: " + message);
+            while (true) {
 
-            String[] parts = message.split(",");
 
-            int row = Integer.parseInt(parts[0]);
-            int col = Integer.parseInt(parts[1]);
+                // Server wartet auf eine Zeile vom Client
+                String message = in.readLine();
+                System.out.println("Client says: " + message);
 
-            board.setMove(row - 1, col - 1, 'O');
+                String[] parts = message.split(",");
+                int row = Integer.parseInt(parts[0]);
+                int col = Integer.parseInt(parts[1]);
 
-            board.printBoard();
+                if (!board.isValid(row - 1, col - 1)) {
+                    out.println(board.getBoardAsString());
+                    out.println("Invalid position!");
+                    out.println("YOUR_TURN");
+                    out.println();
+                    continue;
+                }
 
-            out.println(board.getBoardAsString());
+                if (!board.setMove(row - 1, col - 1, 'O')) {
+                    out.println(board.getBoardAsString());
+                    out.println("Field is already taken!");
+                    out.println("YOUR_TURN");
+                    out.println();
+                    continue;
+                }
+
+                out.println(board.getBoardAsString());
+                out.println("Waiting for server...");
+                out.println();
+
+                if (board.hasWinner('O')) {
+                    out.println(board.getBoardAsString());
+                    out.println("Player O wins!");
+                    out.println();
+                    board.printBoard();
+                    System.out.println("Player O wins!");
+                    break;
+                }
+
+                if (board.isFull()) {
+                    out.println(board.getBoardAsString());
+                    out.println("Draw!");
+                    out.println();
+                    board.printBoard();
+                    System.out.println("Draw!");
+                    break;
+                }
+
+                board.printBoard();
+
+                boolean serverMoveSet = false;
+
+                while (!serverMoveSet) {
+
+                    System.out.print("Server Row (1-3): ");
+                    int serverRow = scanner.nextInt();
+
+                    System.out.print("Server Col (1-3): ");
+                    int serverCol = scanner.nextInt();
+
+                    if (!board.isValid(serverRow - 1, serverCol - 1)) {
+                        System.out.println("Invalid position!");
+                        continue;
+                    }
+
+                    if (!board.setMove(serverRow - 1, serverCol - 1, 'X')) {
+                        System.out.println("Field is already taken!");
+                        continue;
+                    }
+
+                    serverMoveSet = true;
+                }
+
+                board.printBoard();
+
+                if (board.hasWinner('X')) {
+                    out.println(board.getBoardAsString());
+                    out.println("Player X wins!");
+                    out.println();
+                    board.printBoard();
+                    System.out.println("Player X wins!");
+                    break;
+                }
+
+                if (board.isFull()) {
+                    out.println(board.getBoardAsString());
+                    out.println("Draw!");
+                    out.println();
+                    board.printBoard();
+                    System.out.println("Draw!");
+                    break;
+                }
+
+                out.println(board.getBoardAsString());
+                out.println("YOUR_TURN");
+                out.println();
+            }
 
             // Verbindung zum Clienten
             clientSocket.close();
             // öffnet Server-Tür
             serverSocket.close();
 
-            // Falls Netzwerkfehler passiert, landet Java hier
+        // Falls Netzwerkfehler passiert, landet Java hier
         } catch (IOException e) {
             System.out.println("Server error: " + e.getMessage());
         }

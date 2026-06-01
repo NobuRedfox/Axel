@@ -1,3 +1,7 @@
+// erst im Terminal im src Ordner -> "javac *.java"
+// dann "java Main server"
+// Client muss das eingeben "java Main client 127.0.0.1"
+
 public class Main {
 
     public static void main(String[] args) {
