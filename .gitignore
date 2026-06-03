@@ -12,9 +12,18 @@ target/
 __pycache__/
 *.pyc
 
+# Java
+*.class
+
+# Vim
+*.swp
+
 # OS
 .DS_Store
 Thumbs.db
 
 # IntelliJ-Ordner/Downloads
 idea-*/
+
+# Logs
+*.log
