@@ -1,4 +1,4 @@
-# TicTacToeGretap
+# JavaNetworkTicTacToe
 
 This project started as a simple Java TicTacToe game and was later extended with network communication.
 
@@ -28,7 +28,7 @@ The server listens on port `5000`.
 ## Project Structure
 
 ```text
-Java/TicTacToeGretap/
+Java/JavaNetworkTicTacToe/
 ├── README.md
 ├── scripts/
 │   └── start-local.sh
@@ -45,7 +45,7 @@ Java/TicTacToeGretap/
 Go into the source folder:
 
 ```bash
-cd Java/TicTacToeGretap/src
+cd Java/JavaNetworkTicTacToe/src
 ```
 
 Compile the Java files:
@@ -103,7 +103,7 @@ git clone https://github.com/NobuRedfox/Axel.git
 Then they go into the project folder:
 
 ```bash
-cd Axel/Java/TicTacToeGretap/src
+cd Axel/Java/JavaNetworkTicTacToe/src
 ```
 
 Then they compile the project:
@@ -118,39 +118,12 @@ Then they start the client with the server IP:
 java Main client SERVER_IP
 ```
 
-Example:
-
-```bash
-java Main client 192.168.178.115
-```
-
-Important:
-
-* The server must already be running.
-* Both computers must be in the same network or connected through a tunnel.
-* Port `5000` must not be blocked by a firewall.
-* The other player only changes the IP address in the command, not in the code.
-
 ## Test the connection
 
 Before starting the game, the other player can test whether the server is reachable.
 
-Ping test:
-
-```bash
-ping SERVER_IP
-```
-
-Port test:
-
 ```bash
 nc -vz SERVER_IP 5000
-```
-
-Example:
-
-```bash
-nc -vz 192.168.178.115 5000
 ```
 
 If the port test says `succeeded`, the connection to the server works.
@@ -160,8 +133,6 @@ If the port test says `succeeded`, the connection to the server works.
 The project can also be started inside two separate Linux network namespaces.
 
 This simulates two independent computers connected through a virtual network.
-
-Setup:
 
 ```bash
 ./scripts/start-local.sh
@@ -179,25 +150,9 @@ Client:
 sudo ip netns exec client-ns java -cp src Main client 10.0.0.1
 ```
 
-## GREtap / WireGuard idea
-
-Later the game can also be used over a tunnel.
-
-For example:
-
-* GREtap can simulate that both players are in the same Layer-2 network.
-* WireGuard can connect two computers over the internet.
-
-In that case the client still only needs the reachable IP address of the server.
-
-```bash
-java Main client SERVER_IP
-```
-
 ## Future Ideas
 
 * Play between two real computers
 * Connect namespaces through WireGuard
-* Connect different systems through GREtap
 * Add a graphical user interface
 * Improve the game protocol
