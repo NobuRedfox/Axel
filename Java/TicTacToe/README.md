@@ -1,24 +1,43 @@
 # TicTacToe
 
-Ein einfaches TicTacToe-Projekt in Java.
+Ein TicTacToe-Spiel in Java für die Konsole.
 
-Das Projekt war eines meiner ersten Java-Projekte und diente dazu, grundlegende Programmierkonzepte praktisch zu üben.
+Das Projekt enthält zwei Spielmodi:
+
+- Spieler gegen Spieler
+- Spieler gegen Computer
+
+Der Computer setzt nicht nur zufällig, sondern prüft einfache kritische Situationen: Er kann eigene Gewinnzüge erkennen und gegnerische Gewinnzüge blockieren.
 
 ---
 
-## Ziel des Projekts
+## Funktionen
 
-Ziel war es, ein spielbares TicTacToe in der Konsole umzusetzen.
+- 3x3-Spielfeld in der Konsole
+- Eingabe von Zeile und Spalte
+- Prüfung auf gültige Züge
+- Spielerwechsel zwischen `X` und `O`
+- Gewinnprüfung für Reihen, Spalten und Diagonalen
+- Unentschieden nach maximal 9 Zügen
+- Spielmodus-Auswahl
+- einfacher Computergegner
+- Eingabeprüfung bei falschen Zahlen oder Text
 
-Dabei wurden vor allem diese Grundlagen geübt:
+---
 
-- Klassen und Methoden
-- Arrays
+## Gelernte Inhalte
+
+In diesem Projekt wurden vor allem diese Java-Grundlagen geübt:
+
+- zweidimensionale Arrays
+- Methoden
 - Schleifen
 - Bedingungen
-- Benutzereingaben
-- Spiellogik
-- Gewinnprüfung
+- `Scanner` für Benutzereingaben
+- `Random` für Computerzüge
+- einfache Spiellogik
+- Validierung von Eingaben
+- Strukturierung von Code in mehrere Methoden
 
 ---
 
@@ -28,29 +47,21 @@ Dabei wurden vor allem diese Grundlagen geübt:
 TicTacToe/
 ├── README.md
 └── src/
-    └── Java-Dateien
+    └── Main.java
 ```
 
 ---
 
 ## Starten
 
-Im Ordner `src` kompilieren:
+Das Projekt wurde mit IntelliJ IDEA erstellt.
 
-```bash
-javac *.java
-```
-
-Danach starten:
-
-```bash
-java Main
-```
+Zum Starten die Datei `src/Main.java` öffnen und die `main`-Methode ausführen.
 
 ---
 
-## Status
+## Hinweis
 
-Dieses Projekt ist ein frühes Lernprojekt.
+Dieses Projekt ist ein frühes Java-Lernprojekt.
 
-Der Code ist nicht perfekt, zeigt aber meine ersten Schritte mit Java und einfacher Spiellogik.
+Der Code liegt noch komplett in einer Datei, ist aber bereits in einzelne Methoden aufgeteilt. Dadurch werden Spiellogik, Eingabeprüfung, Ausgabe und Computerzüge übersichtlicher getrennt.
