@@ -15,7 +15,7 @@ Der Schwerpunkt liegt auf Java und ein bisschen Python.
 
 ## Projekte
 
-### TicTacToeGretap
+### JavaNetworkTicTacToe
 
 Netzwerkfähiges TicTacToe mit Client-Server-Kommunikation in Java.
 
